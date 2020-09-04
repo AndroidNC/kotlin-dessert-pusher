@@ -28,6 +28,7 @@ import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleObserver
 import com.example.android.dessertpusher.databinding.ActivityMainBinding
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity(), LifecycleObserver {
 
@@ -67,7 +68,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // TODO (01) Add an info level log statement here
-        Log.i("MainActivity", "onCreated called")
+        Timber.i("onCreated called")
 
         // Use Data Binding to get reference to the views
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -157,27 +158,31 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
     override fun onStart() {
         super.onStart()
-        Log.i("MainActivity", "onStart() has been called")
+        Timber.i("onStart() has been called at")
     }
 
     override fun onResume() {
-        Log.i("MainActivity", "OnResume() has been called")
+        Timber.i("OnResume() has been called")
         super.onResume()
     }
 
     override fun onStop() {
-        Log.i("MainActivity", "OnStop() has been called")
+        Timber.i("OnStop() has been called")
         super.onStop()
     }
 
     override fun onPause() {
-        Log.i("MainActivity", "OnPause() has been called")
+        Timber.i("OnPause() has been called")
         super.onPause()
     }
 
     override fun onDestroy() {
-        Log.i("MainActivity", "OnDestroy() has been called")
+        Timber.i("OnDestroy() has been called")
         super.onDestroy()
     }
 
+    override fun onRestart() {
+        Timber.i("OnRestart() has been called")
+        super.onRestart()
+    }
 }
