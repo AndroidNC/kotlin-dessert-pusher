@@ -18,6 +18,7 @@ package com.example.android.dessertpusher
 
 import android.content.ActivityNotFoundException
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.util.Log
 import android.view.ActionMode
 import android.view.Menu
@@ -157,8 +158,8 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
     // TODO (02) Override the onStart lifecycle method and add an info level log statement
 
     override fun onStart() {
-        super.onStart()
         Timber.i("onStart() has been called at")
+        super.onStart()
     }
 
     override fun onResume() {
@@ -184,5 +185,16 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
     override fun onRestart() {
         Timber.i("OnRestart() has been called")
         super.onRestart()
+    }
+
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        Timber.i("onSaveInstanceState is called. Bundle is %s", if(outState==null) "Null" else "Not Null")
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        Timber.i("onRestoreInstanceState is called. Bundle is %s", if(savedInstanceState==null) "Null" else "Not Null")
+        super.onRestoreInstanceState(savedInstanceState)
     }
 }
