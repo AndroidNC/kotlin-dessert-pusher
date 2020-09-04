@@ -190,11 +190,21 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
     override fun onSaveInstanceState(outState: Bundle) {
         Timber.i("onSaveInstanceState is called. Bundle is %s", if(outState==null) "Null" else "Not Null")
+        outState.putInt("dessertsSold", dessertsSold)
+        outState.putInt("revenue", revenue)
         super.onSaveInstanceState(outState)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        Timber.i("onRestoreInstanceState is called. Bundle is %s", if(savedInstanceState==null) "Null" else "Not Null")
+        dessertsSold = savedInstanceState.getInt("dessertsSold")
+        revenue = savedInstanceState.getInt("revenue")
+
+        //update UI
+        binding.amountSold = dessertsSold
+        binding.revenue = revenue
+
+        Timber.i("onRestoreInstanceState is called. Bundle is %s. retrieved data from bundle: dessetsSold: %d, revenue: %d", if(savedInstanceState==null) "Null" else "Not Null",dessertsSold, revenue)
+
         super.onRestoreInstanceState(savedInstanceState)
     }
 }
