@@ -67,7 +67,12 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
     )
     private var currentDessert = allDesserts[0]
 
+    private val KEY_DESSERTSSOLD = "dessertsSold"
+    private val KEY_REVENUE = "revenue"
+    private val KEY_SECONDS_COUNT = "secondsCount"
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         // TODO (01) Add an info level log statement here
         Timber.i("onCreated called")
@@ -79,6 +84,11 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
             onDessertClicked()
         }
 
+        if(savedInstanceState != null) {
+            dessertsSold = savedInstanceState.getInt(KEY_DESSERTSSOLD)
+            revenue = savedInstanceState.getInt(KEY_REVENUE)
+        }
+
         // Set the TextViews to the right values
         binding.revenue = revenue
         binding.amountSold = dessertsSold
@@ -88,6 +98,10 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
         //Initialize Timer
         dessertTimer = DessertTimer(this.lifecycle)
+
+        if(savedInstanceState != null)
+            dessertTimer.secondsCount = savedInstanceState.getInt(KEY_SECONDS_COUNT)
+
     }
 
     /**
@@ -194,20 +208,15 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
     override fun onSaveInstanceState(outState: Bundle) {
         Timber.i("onSaveInstanceState is called. Bundle is %s", if(outState==null) "Null" else "Not Null")
-        outState.putInt("dessertsSold", dessertsSold)
-        outState.putInt("revenue", revenue)
+        outState.putInt(KEY_DESSERTSSOLD, dessertsSold)
+        outState.putInt(KEY_REVENUE, revenue)
+        outState.putInt(KEY_SECONDS_COUNT, dessertTimer.secondsCount)
         super.onSaveInstanceState(outState)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        dessertsSold = savedInstanceState.getInt("dessertsSold")
-        revenue = savedInstanceState.getInt("revenue")
 
-        //update UI
-        binding.amountSold = dessertsSold
-        binding.revenue = revenue
-
-        Timber.i("onRestoreInstanceState is called. Bundle is %s. retrieved data from bundle: dessetsSold: %d, revenue: %d", if(savedInstanceState==null) "Null" else "Not Null",dessertsSold, revenue)
+        Timber.i("onRestoreInstanceState is called.")
 
         super.onRestoreInstanceState(savedInstanceState)
     }
