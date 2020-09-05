@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         binding.dessertButton.setImageResource(currentDessert.imageId)
 
         //Initialize Timer
-        dessertTimer = DessertTimer()
+        dessertTimer = DessertTimer(this.lifecycle)
     }
 
     /**
@@ -163,7 +163,6 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
     override fun onStart() {
         Timber.i("onStart() has been called at")
-        dessertTimer.startTimer()
         super.onStart()
     }
 
@@ -174,7 +173,6 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
     override fun onStop() {
         Timber.i("OnStop() has been called")
-        dessertTimer.stopTimer()
         super.onStop()
     }
 
